@@ -1,0 +1,17 @@
+{
+  "name": "@esheen-labs/data-table-interactions-oss",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Offline table filtering, stable sorting and pagination over synthetic rows with semantic HTML.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node examples/demo.mjs"
+  }
+}
+
+

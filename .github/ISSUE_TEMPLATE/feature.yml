@@ -1,0 +1,17 @@
+name: Developer problem or improvement
+description: Explain a practical use case
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Developer problem and proposed outcome
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Synthetic example, alternatives and acceptance criteria
+    validations:
+      required: true
+
+

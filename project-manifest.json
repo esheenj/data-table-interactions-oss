@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "data-table-interactions-oss",
+  "status": "experimental-source-preview",
+  "language": "JavaScript (ES modules)",
+  "runtime": {
+    "node": ">=20",
+    "browser": "ES modules; local HTTP server for demo"
+  },
+  "license": "MIT",
+  "entrypoints": {
+    "model": "src/table.mjs",
+    "browser_adapter": "src/app.mjs",
+    "browser_demo": "index.html",
+    "synthetic_data": "examples/data.mjs",
+    "cli_example": "examples/demo.mjs"
+  },
+  "commands": {
+    "test": "npm test",
+    "demo": "npm run demo",
+    "serve": "python3 -m http.server 8000 --bind 127.0.0.1"
+  },
+  "runtime_dependencies": [],
+  "data": "synthetic examples only",
+  "network": "no application runtime network requests",
+  "persistence": "none",
+  "contributor_guidance": [
+    "README.md",
+    "AGENTS.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "QA.md"
+  ],
+  "non_goals": [
+    "production backend",
+    "telemetry",
+    "credentials",
+    "accessibility certification"
+  ],
+  "authority": "descriptive metadata only; does not authorize execution"
+}

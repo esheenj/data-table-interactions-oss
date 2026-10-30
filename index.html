@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Data Table Interactions</title>
+<style>
+:root{font:16px/1.5 system-ui,sans-serif;color-scheme:light dark}*{box-sizing:border-box}
+body{margin:0;background:Canvas;color:CanvasText}main{max-width:1050px;margin:auto;padding:clamp(1rem,3vw,2.5rem)}
+h1{font-size:clamp(1.5rem,4vw,2.1rem)}.muted{opacity:.75}.shell{border:1px solid #888;border-radius:1rem;padding:clamp(.75rem,2vw,1.5rem)}
+.controls{display:grid;gap:.75rem}.field label{display:block;font-weight:650;margin-bottom:.3rem}
+input,select{padding:.7rem;min-height:44px;width:100%;font:inherit;border:1px solid #888;border-radius:.5rem;background:Canvas;color:CanvasText}
+button{font:inherit;min-height:44px;border:1px solid #888;border-radius:.5rem;background:Canvas;color:CanvasText;padding:.45rem .7rem;cursor:pointer}
+:focus-visible{outline:3px solid Highlight;outline-offset:2px}
+.scroll{overflow-x:auto;max-width:100%;margin-top:1rem}
+table{width:100%;border-collapse:collapse;min-width:380px}
+th,td{padding:.65rem .55rem;border-bottom:1px solid #888;text-align:left}th button{font-weight:700;white-space:nowrap}tbody tr:hover{background:color-mix(in srgb,CanvasText 7%,Canvas)}
+.footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.65rem;margin-top:1rem}.paging{display:flex;gap:.55rem;align-items:center}
+button:disabled{opacity:.4;cursor:not-allowed}
+@media(min-width:740px){.controls{grid-template-columns:2fr 1fr 1fr auto;align-items:end}}
+@media(max-width:360px){.paging{width:100%;justify-content:space-between}}
+</style></head><body><main>
+<h1>Data Table Interactions</h1>
+<p class="muted">Sort, filter and paginate fabricated rows. No real data or network calls.</p>
+<section class="shell" aria-labelledby="heading"><h2 id="heading">Sample records</h2>
+<div class="controls">
+<div class="field"><label for="query">Search name</label><input type="search" id="query" autocomplete="off" maxlength="100"></div>
+<div class="field"><label for="category">Category</label><select id="category"><option value="all">All categories</option><option value="design">Design</option><option value="research">Research</option><option value="engineering">Engineering</option></select></div>
+<div class="field"><label for="page-size">Rows per page</label><select id="page-size"><option value="4">4</option><option value="5">5</option><option value="8">8</option></select></div>
+<button type="button" id="clear">Clear</button>
+</div>
+<div class="scroll" tabindex="0" role="region" aria-label="Sortable synthetic data table">
+<table><thead><tr>
+<th scope="col" aria-sort="ascending"><button type="button" data-sort="name">Name ↑</button></th>
+<th scope="col" aria-sort="none"><button type="button" data-sort="category">Category ↕</button></th>
+<th scope="col" aria-sort="none"><button type="button" data-sort="score">Score ↕</button></th>
+</tr></thead><tbody id="table-body"></tbody></table></div>
+<p id="empty" hidden role="status">No matching records. Adjust the search or clear filters.</p>
+<footer class="footer">
+<span id="pager" role="status" aria-live="polite">Loading sample rows</span>
+<div class="paging"><button id="prev" type="button">Previous</button><span id="page">Page 1</span><button id="next" type="button">Next</button></div>
+</footer>
+</section></main><script type="module" src="./src/app.mjs"></script></body></html>
+
+
