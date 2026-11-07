@@ -23,12 +23,14 @@ class FakeElement {
     assert.ok(listener, 'Missing ' + name + ' listener');
     listener({ target: this });
   }
+  click() { this.clicked = true; }
+  remove() { this.removed = true; }
   focus() { this.focused = true; }
   closest(selector) { assert.equal(selector, 'th'); return this.header; }
   setAttribute(name, value) { this.attributes.set(name, value); }
 }
 function createHarness() {
-  const selectors = ['query', 'category', 'page-size', 'table-body', 'empty', 'pager', 'page', 'prev', 'next', 'clear'];
+  const selectors = ['query', 'category', 'page-size', 'table-body', 'empty', 'pager', 'page', 'prev', 'next', 'clear', 'export', 'export-status'];
   const elements = Object.fromEntries(selectors.map(x => [x, new FakeElement()]));
   const sorts = ['name', 'category', 'score'].map(sort => {
     const button = new FakeElement('button');
@@ -36,12 +38,14 @@ function createHarness() {
     button.header = new FakeElement('th');
     return button;
   });
+  const created = [];
   const document = {
-    createElement: tag => new FakeElement(tag),
+    body: new FakeElement("body"),
+    createElement: tag => { const el = new FakeElement(tag); created.push(el); return el; },
     querySelector: selector => { assert.match(selector, /^#[a-z-]+$/); return elements[selector.slice(1)]; },
     querySelectorAll: selector => { assert.equal(selector, '[data-sort]'); return sorts; }
   };
-  return { document, elements, sorts };
+  return { document, elements, sorts, created };
 }
 const pageState = h => ({
   page: h.elements.page.textContent,
@@ -104,6 +108,34 @@ test('sort header semantics and keyboard focus follow active direction', async (
     h.sorts[2].emit('click');
     assert.equal(h.sorts[2].header.attributes.get('aria-sort'), 'descending');
     assert.equal(pageState(h).rows[0], 'Demo performance test');
+  } finally {
+    delete globalThis.document;
+  }
+});
+
+test('browser adapter exports matching rows as an offline download across pages', async () => {
+  const h = createHarness();
+  globalThis.document = h.document;
+  try {
+    await import('../src/app.mjs?csv-export-probe');
+    h.elements['page-size'].emit('change', '4');
+    h.elements.query.emit('input', 'Synthetic');
+    assert.equal(h.elements.export.disabled, false);
+    h.elements.export.emit('click');
+    const anchor = h.created.filter(x => x.tagName === 'A').at(-1);
+    assert.ok(anchor);
+    assert.equal(anchor.download, 'fictional-filtered-rows.csv');
+    assert.equal(anchor.clicked, true);
+    assert.equal(anchor.removed, true);
+    assert.match(anchor.href, /^data:text\/csv;charset=utf-8,/);
+    const csv = decodeURIComponent(anchor.href.split(',').slice(1).join(',')).replace(/^\uFEFF/, '');
+    assert.equal(csv.split('\r\n').length, 4);
+    assert.match(csv, /Synthetic research notes/);
+    assert.match(csv, /Synthetic analytics experiment/);
+    assert.match(h.elements['export-status'].textContent, /2 fictional matching rows prepared/);
+    h.elements.query.emit('input', 'nothing-could-match-this');
+    assert.equal(h.elements.export.disabled, true);
+    assert.equal(h.elements['export-status'].textContent, '');
   } finally {
     delete globalThis.document;
   }
