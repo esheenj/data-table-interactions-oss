@@ -14,6 +14,9 @@ function cell(value) {
 }
 export function exportFilteredCSV(rows, options={}) {
   assertRows(rows);
+  // Validate the original user query BEFORE overriding pagination for export.
+  // Otherwise an invalid page size or null query could be silently ignored.
+  deriveTable(rows, options);
   // The view model is the source of truth for search, category and stable
   // sorting. Export every filtered record, irrespective of current page.
   const first=deriveTable(rows,{...options,page:1,pageSize:50});
