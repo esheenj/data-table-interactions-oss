@@ -30,7 +30,7 @@ test("CSV preserves quoted commas, newlines and Unicode without active formula c
   const result=exportFilteredCSV(rows,{sortBy:"score",pageSize:1});
   assert.equal(result.rowCount,6);
   assert.ok(result.csv.includes('"\'  =HYPERLINK(""fake://test"",""click""), fake"'));
-  assert.ok(result.csv.includes('"\' +'.replace(" ","")+"SUM(1,2)\""));
+  assert.ok(result.csv.includes('"\'+SUM(1,2)"'));
   assert.ok(result.csv.includes('"\'-1+2"'));
   assert.ok(result.csv.includes('"\'@fake"'));
   assert.ok(result.csv.includes('"\''+"\t=not-a-command"+'"'));
@@ -57,6 +57,6 @@ test("empty filter has only the header and malformed inputs fail closed",()=>{
   assert.equal(none.csv,'"ID","Name","Category","Score"\r\n');
   assert.throws(()=>exportFilteredCSV([...sampleRows,sampleRows[0]]),TableError);
   assert.throws(()=>exportFilteredCSV(sampleRows,{sortBy:"unsafe"}),TableError);
-  assert.throws(()=>exportFilteredCSV(sampleRows,{pageSize:0}),/^(?!$)/);
+  assert.throws(()=>exportFilteredCSV(sampleRows,{pageSize:0}),TableError);
   assert.throws(()=>exportFilteredCSV(null),TableError);
 });
