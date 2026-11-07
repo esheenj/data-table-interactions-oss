@@ -28,6 +28,7 @@ Open http://127.0.0.1:8000 on the same computer. No npm install is required. The
 - Stable text/numeric sorting, clamped pagination and empty states.
 - Semantic table, sortable headers, live counts and native controls.
 - Pure validation/query model, deterministic synthetic demo and regression tests.
+- **Download filtered CSV** locally: export every matching row in the selected order, even across pages. No upload, account or backend.
 
 ## API v1
 
@@ -35,6 +36,7 @@ Open http://127.0.0.1:8000 on the same computer. No npm install is required. The
 | --- | --- |
 | assertRows(rows) | Validates at most 1,000 rows; throws TableError |
 | deriveTable(rows, options) | Returns rows, total, page, pageCount, pageSize, start, end, hasPrevious, hasNext |
+| exportFilteredCSV(rows, options) | Returns `{ rowCount, csv }` for **all** matching rows using the same validated query/sort, irrespective of current page |
 
 Each row: unique lowercase id (1–48 letters/digits/hyphens), name (1–80 characters), category (design/research/engineering), integer score (0–100). Options: search (up to 100 characters), category (or all), sortBy (name/category/score), direction (asc/desc), page (positive integer), pageSize (1–50). Requested pages clamp to the last page. Empty results have pageCount 1 and start/end 0. Sorting preserves equal-value order in either direction. Returned row references are not a privacy sanitizer: supply synthetic or properly authorized data only.
 
@@ -50,6 +52,12 @@ console.log(view.rows, view.total, view.hasNext);
 ```
 
 Keep source rows immutable and derive a new view when controls change. The pure model is independent of the semantic HTML adapter. Arbitrary returned row fields are not stripped or sanitized.
+
+## Local CSV export
+
+Use the **Download filtered CSV** button in the browser demo or call `exportFilteredCSV` from `src/export.mjs`. It includes headers `ID, Name, Category, Score`, follows the search/category/sort controls, and exports all matching records even when the table is paginated. Empty filters produce only the header; the browser disables the download button for zero matches. The browser downloads a local `data:` URL and does not send requests.
+
+Cells are quoted, quotes are doubled, and formula-like strings beginning with `=`, `+`, `-` or `@` (including after whitespace) receive a leading apostrophe. This is **defense in depth, not guaranteed protection across spreadsheet applications or import settings**. Never export secrets, private research, real customer data or unknown spreadsheet formulas from this teaching demo. The CSV serializer intentionally includes only the four documented public fields, even when synthetic input objects have additional fields.
 
 ## Limitations and checks
 

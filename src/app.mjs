@@ -1,5 +1,6 @@
 import {sampleRows} from "../examples/data.mjs";
 import {deriveTable} from "./table.mjs";
+import {exportFilteredCSV} from "./export.mjs";
 const $=s=>document.querySelector(s);
 let settings={search:"",category:"all",sortBy:"name",direction:"asc",page:1,pageSize:4};
 const cell=(row,text)=>{const el=document.createElement("td");el.textContent=String(text);row.append(el);};
@@ -15,7 +16,8 @@ function render(){
  $("#empty").hidden=x.total!==0;
  $("#pager").textContent=x.total?x.start+"–"+x.end+" of "+x.total:"0 matching records";
  $("#page").textContent="Page "+x.page+" of "+x.pageCount;
- $("#prev").disabled=!x.hasPrevious;$("#next").disabled=!x.hasNext;
+ $("#prev").disabled=!x.hasPrevious;$("#next").disabled=!x.hasNext;$("#export").disabled=x.total===0;
+ $("#export-status").textContent="";
  for(const button of document.querySelectorAll("[data-sort]")){
    const name=button.dataset.sort;
    const active=name===settings.sortBy;
@@ -33,6 +35,15 @@ document.querySelectorAll("[data-sort]").forEach(button=>button.addEventListener
 }));
 $("#prev").addEventListener("click",()=>{settings={...settings,page:settings.page-1};render();});
 $("#next").addEventListener("click",()=>{settings={...settings,page:settings.page+1};render();});
+$("#export").addEventListener("click",()=>{
+ const {csv,rowCount}=exportFilteredCSV(sampleRows,settings);
+ if(!rowCount)return;
+ const link=document.createElement("a");
+ link.href="data:text/csv;charset=utf-8,"+encodeURIComponent("\uFEFF"+csv);
+ link.download="fictional-filtered-rows.csv";
+ document.body.append(link);link.click();link.remove();
+ $("#export-status").textContent=rowCount+" fictional matching rows prepared as CSV. This is a local download, not a data upload.";
+});
 $("#clear").addEventListener("click",()=>{settings={search:"",category:"all",sortBy:"name",direction:"asc",page:1,pageSize:4};
  $("#query").value="";$("#category").value="all";$("#page-size").value="4";render();$("#query").focus();});
 render();
