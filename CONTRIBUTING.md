@@ -4,6 +4,8 @@ Use Node.js 20+; run `npm test` and `npm run demo`. No install step or credentia
 
 Open a focused pull request describing a real developer problem, expected behavior and reproducible tests. Keep fixtures synthetic. Include negative cases when changing validation. For UI changes, describe keyboard use, focus behavior, narrow screens and assistive-technology checks actually performed. State checks you could not run.
 
+See [scoped good first contributions](docs/GOOD_FIRST_ISSUES.md) and [the source-only Pages release guide](docs/PAGES_RELEASE.md). The deployment artifact is built with `node scripts/stage-pages.mjs dist/pages`, tested independently, and never includes private files. Live Pages status needs its own HTTPS verification.
+
 Useful starting points: improve a documented error, test a boundary, reproduce a browser issue, or clarify an example. Larger API changes should begin with a feature request.
 
 Submit only work you own or have permission to redistribute under the MIT license. Preserve third-party notices and identify any new dependencies or generated content. Review AI-assisted code yourself. Do not include personal data, private code, credentials or production examples.
