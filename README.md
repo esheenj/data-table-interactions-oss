@@ -59,6 +59,12 @@ Use the **Download filtered CSV** button in the browser demo or call `exportFilt
 
 Cells are quoted, quotes are doubled, and formula-like strings beginning with `=`, `+`, `-` or `@` (including after whitespace) receive a leading apostrophe. This is **defense in depth, not guaranteed protection across spreadsheet applications or import settings**. Never export secrets, private research, real customer data or unknown spreadsheet formulas from this teaching demo. The CSV serializer intentionally includes only the four documented public fields, even when synthetic input objects have additional fields.
 
+## Public demo readiness and contribution entry
+
+To create the **exact allowlisted static browser bundle**, run `node scripts/stage-pages.mjs dist/pages`. Public CI now tests that staged source with real Chrome, including filtering, sorting, keyboard navigation and an actual synthetic CSV download. [Enable and verify GitHub Pages](docs/PAGES_RELEASE.md) before sharing a hosted URL: this README does **not** claim Pages is live.
+
+New contributors can start from [scoped fictional tasks](docs/GOOD_FIRST_ISSUES.md), follow [CONTRIBUTING.md](CONTRIBUTING.md), and use the structured bug-report and PR templates. Tests do not certify screen-reader or physical-device accessibility.
+
 ## Limitations and checks
 
 This is a reference starter, not a production framework or WCAG certification. Unit tests cover model behavior, not every browser or assistive technology. Released as an experimental source preview after maintainer review and owner visual acceptance. Real-phone recordings show narrow and expanded layouts and selected interactions. Automated model/focus checks and prior Chromium checks are distinct evidence; screen-reader announcements, full physical-device journey, high zoom and the corrected button rendering are not fully verified. See [QA.md](QA.md) for the open checks. No production backend, private API gateway or credentials are required or included.
