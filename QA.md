@@ -11,6 +11,29 @@ This is an experimental source preview, accepted for publication by the owner on
 
 ## Reproduce and contribute evidence
 
+### Current automated browser regression
+
+`python3 -m pip install -r tests/browser-requirements.txt` followed by
+`python3 tests/browser_table.py` uses an installed Chrome/Chromium (override with
+`BROWSER_EXECUTABLE`). Python 3.10+ is required. Playwright is MIT-licensed and
+test-only; no application runtime dependency or browser download is added.
+
+The existing PR workflow runs four real-browser cases alongside the retained
+Node 20/22/24 isolated model suites. Cases exercise actual Tab/Enter sorting and
+focus, combined filters, empty recovery, pagination reset, an actual local CSV
+download containing rows beyond the visible page, and keyboard table scrolling
+at 320px. Layouts also cover 375/812/1440px. A loopback static server and fresh
+browser contexts isolate synthetic fixtures; unexpected external page requests
+or script errors fail the test. Network installation of the test driver is
+separate from page-level request checks and the existing isolated Node tests.
+
+Falsifiable alternative: DOM-harness/model tests pass while real native controls,
+focus, scrolling or browser downloads fail. These cases independently check the
+rendered adapter. They do not establish screen-reader announcements, real-device,
+actual browser zoom, forced-colors behavior, spreadsheet safety or WCAG compliance.
+
+### Independent checks still needed
+
 Record the exact commit, device, browser/version, CSS viewport, zoom, keyboard or touch method, and screen reader/version where used. Report observable expected/actual behavior with synthetic data. Do not upload recordings containing private browser tabs, personal data or credentials.
 
 - [ ] Complete and reset the mobile journey on a physical device.
@@ -21,3 +44,4 @@ Record the exact commit, device, browser/version, CSS viewport, zoom, keyboard o
 - [ ] Exercise table empty-state recovery and multiple-page navigation.
 
 Publish only checks actually performed. A numeric color calculation, unit test or owner visual acceptance does not establish WCAG conformance.
+

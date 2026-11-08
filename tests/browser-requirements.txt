@@ -1,0 +1,2 @@
+# MIT test-only dependency; runtime remains dependency-free.
+playwright==1.62.0
