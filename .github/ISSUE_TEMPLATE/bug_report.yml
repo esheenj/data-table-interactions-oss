@@ -1,0 +1,34 @@
+name: "Reproducible issue (fictional table)"
+description: Report a minimal, testable issue without real customer data
+title: "bug: "
+body:
+  - type: markdown
+    attributes:
+      value: "Use fabricated rows only. Do not include employer/client information, passwords, private system prompts or account identifiers."
+  - type: input
+    id: revision
+    attributes:
+      label: Source revision and runtime
+      placeholder: "Commit SHA; Node 22; Chrome version if UI"
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Minimal synthetic rows, query and actions
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result and expected result
+    validations:
+      required: true
+  - type: textarea
+    id: checks
+    attributes:
+      label: Test evidence and missing checks
+      description: npm test, browser checks, keyboard or download observations
+    validations:
+      required: true

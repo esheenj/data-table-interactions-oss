@@ -56,6 +56,8 @@ jobs:
           node --test
           node examples/demo.mjs
           CHECKS
+      - name: Stage minimal public Pages bundle
+        run: node scripts/stage-pages.mjs dist/pages
 
   browser:
     name: Real Chrome table interactions
@@ -68,6 +70,10 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Install pinned test-only driver
         run: python3 -m pip install -r tests/browser-requirements.txt
-      - name: Verify real browser controls and local download
+      - name: Stage exact minimal public demo
+        run: node scripts/stage-pages.mjs dist/pages
+      - name: Verify real browser and downloaded CSV from staged public files
+        env:
+          TABLE_DEMO_ROOT: dist/pages
         run: python3 tests/browser_table.py
 
