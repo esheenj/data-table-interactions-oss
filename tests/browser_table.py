@@ -14,7 +14,7 @@ import threading
 import unittest
 from playwright.sync_api import sync_playwright, expect
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(os.environ.get('TABLE_DEMO_ROOT') or Path(__file__).resolve().parents[1]).resolve()
 
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
