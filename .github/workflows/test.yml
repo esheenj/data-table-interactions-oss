@@ -23,6 +23,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: ${{ matrix.node }}
@@ -55,3 +56,18 @@ jobs:
           node --test
           node examples/demo.mjs
           CHECKS
+
+  browser:
+    name: Real Chrome table interactions
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Install pinned test-only driver
+        run: python3 -m pip install -r tests/browser-requirements.txt
+      - name: Verify real browser controls and local download
+        run: python3 tests/browser_table.py
+

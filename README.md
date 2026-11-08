@@ -65,6 +65,10 @@ This is a reference starter, not a production framework or WCAG certification. U
 
 ## Contribute
 
+For the optional real Chrome interaction/download regression, see the commands,
+test-only dependency and remaining device/accessibility limits in [QA.md](QA.md).
+The default `npm test` and runtime still require no dependency installation.
+
 Start with [CONTRIBUTING.md](CONTRIBUTING.md), [AGENTS.md](AGENTS.md), bug reports or feature requests. Useful feedback includes a synthetic reproduction, exact revision and observable expected result. Follow [community conduct](CODE_OF_CONDUCT.md) and [private vulnerability reporting](SECURITY.md).
 
 ## Roadmap
@@ -84,3 +88,4 @@ Read [AGENTS.md](AGENTS.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the machine-
 - [Mobile-first Flow Kit](https://github.com/esheenj/mobile-first-flow-kit-oss)
 - [Data Table Interactions](https://github.com/esheenj/data-table-interactions-oss)
 - [Design System Foundations](https://github.com/esheenj/design-system-foundations-oss)
+
