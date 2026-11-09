@@ -1,5 +1,7 @@
 # Data Table Interactions
 
+**[Open the GitHub-deployed synthetic data table and CSV demo](https://esheenj.github.io/data-table-interactions-oss/)** — [GitHub Pages deployment](https://github.com/esheenj/data-table-interactions-oss/actions/runs/42476118286) succeeded on **9 November 2026**. Independent external HTTPS/browser verification is still pending; please report any rendering problems in GitHub Issues.
+
 [![Offline checks](https://github.com/esheenj/data-table-interactions-oss/actions/workflows/test.yml/badge.svg)](https://github.com/esheenj/data-table-interactions-oss/actions/workflows/test.yml)
 
 **Experimental source preview · MIT · zero runtime dependencies**
@@ -61,7 +63,7 @@ Cells are quoted, quotes are doubled, and formula-like strings beginning with `=
 
 ## Public demo readiness and contribution entry
 
-To create the **exact allowlisted static browser bundle**, run `node scripts/stage-pages.mjs dist/pages`. Public CI now tests that staged source with real Chrome, including filtering, sorting, keyboard navigation and an actual synthetic CSV download. [Enable and verify GitHub Pages](docs/PAGES_RELEASE.md) before sharing a hosted URL: this README does **not** claim Pages is live.
+To create the **exact allowlisted static browser bundle**, run `node scripts/stage-pages.mjs dist/pages`. Public CI now tests that staged source with real Chrome, including filtering, sorting, keyboard navigation and an actual synthetic CSV download. [Enable and verify GitHub Pages](docs/PAGES_RELEASE.md) before sharing a hosted URL: GitHub Pages has now deployed successfully; independent browser acceptance remains pending.
 
 New contributors can start from [scoped fictional tasks](docs/GOOD_FIRST_ISSUES.md), follow [CONTRIBUTING.md](CONTRIBUTING.md), and use the structured bug-report and PR templates. Tests do not certify screen-reader or physical-device accessibility.
 
