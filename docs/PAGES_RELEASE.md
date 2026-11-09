@@ -1,5 +1,7 @@
 # Publishing the fictional Data Table demo with GitHub Pages
 
+**Deployment status (9 November 2026):** [GitHub Actions run 42476118286](https://github.com/esheenj/data-table-interactions-oss/actions/runs/42476118286) successfully deployed this public-source Pages bundle to [https://esheenj.github.io/data-table-interactions-oss/](https://esheenj.github.io/data-table-interactions-oss/). That link comes from GitHub's actual deployment receipt, not a guess. Independent external HTTPS/browser acceptance remains pending.
+
 This is an original public, dependency-free ESM browser demo. The offline project does **not** gain a live website merely because its repository is public.
 
 ## Exact static bundle, locally
