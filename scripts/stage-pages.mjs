@@ -6,7 +6,7 @@ import {createHash} from "node:crypto";
 
 const ROOT=fileURLToPath(new URL("../",import.meta.url));
 const FILES=Object.freeze([
-  "index.html","experiment.html","src/app.mjs","src/table.mjs","src/export.mjs","src/experiment.mjs","src/experiment-ui.mjs","examples/data.mjs"
+  "index.html","experiment.html","quality.html","src/app.mjs","src/table.mjs","src/export.mjs","src/experiment.mjs","src/experiment-ui.mjs","src/data-quality.mjs","src/data-quality-ui.mjs","examples/data.mjs"
 ]);
 function fail(reason){throw Error("TABLE_PAGES_STAGE_"+reason);}
 async function realSource(root,path){
@@ -56,6 +56,11 @@ export async function stagePages(destination){
    if(!index.includes("experiment.html")||!experimental.includes("./src/experiment-ui.mjs")||
       !adapter.includes("./experiment.mjs")||!experimental.includes("connect-src 'none'"))
     fail("EXPERIMENT_LINK_OR_OFFLINE_POLICY");
+   const quality=await readFile(join(output,"quality.html"),"utf8");
+   const qualityUI=await readFile(join(output,"src/data-quality-ui.mjs"),"utf8");
+   if(!index.includes("quality.html")||!quality.includes("./src/data-quality-ui.mjs")||
+      !qualityUI.includes("./data-quality.mjs")||!quality.includes("connect-src 'none'"))
+    fail("QUALITY_LINK_OR_OFFLINE_POLICY");
    const manifest=[];
    for(const file of actual){
      const data=await readFile(join(output,file));
