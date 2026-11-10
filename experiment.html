@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="description" content="Original offline descriptive A/B experiment worksheet using entirely fictional data.">
+<title>Synthetic Experiment Worksheet · Esheen Labs</title>
+<style>
+:root{font:16px/1.55 system-ui,sans-serif;color-scheme:light dark}
+*{box-sizing:border-box}
+body{background:Canvas;color:CanvasText;margin:0}
+main{max-width:65rem;padding:clamp(1rem,4vw,3rem);margin:auto}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1}
+p{max-width:70ch}
+.panel{border:1px solid GrayText;border-radius:1rem;padding:clamp(1rem,3vw,1.6rem);margin:1rem 0;min-width:0}
+textarea{display:block;width:100%;min-height:21rem;padding:1rem;border:1px solid GrayText;border-radius:.6rem;background:Canvas;color:CanvasText;font:.84rem/1.5 ui-monospace,monospace}
+button{font:inherit;background:Canvas;color:CanvasText;border:1px solid GrayText;border-radius:.6rem;min-height:48px;padding:.6rem 1rem;cursor:pointer}
+a{color:LinkText}
+:focus-visible{outline:3px solid Highlight;outline-offset:3px}
+.actions{display:flex;gap:.75rem;flex-wrap:wrap;margin:1rem 0}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem}
+.metrics div{border:1px solid GrayText;border-radius:.5rem;padding:1rem;min-width:0}
+.metrics strong{font-size:1.5rem;overflow-wrap:anywhere;display:block}
+[hidden]{display:none!important}
+#status{font-weight:700}
+</style>
+<script type="module" src="./src/experiment-ui.mjs"></script>
+</head>
+<body><main>
+<p><a href="./">Back to data-table playground</a></p>
+<p>Esheen Labs / Original, fictional analytics reference</p>
+<h1>Explore an experiment before believing it.</h1>
+<p>Compare made-up exposure, conversion and error counts. The calculations are descriptive only. No randomization, causal inference, confidence interval or statistical significance is implied.</p>
+<section class="panel"><h2>1. Change synthetic experiment counts</h2>
+<label for="sheet">Fictional baseline, candidate and error guardrail (JSON)</label>
+<textarea id="sheet" spellcheck="false"></textarea>
+<div class="actions">
+<button id="evaluate" type="button">Evaluate example</button>
+<button id="reset" type="button">Restore example</button>
+</div>
+<p id="status" role="status" aria-live="polite"></p>
+</section>
+<section class="panel" id="result" hidden>
+<h2>2. Inspect descriptive outcomes</h2>
+<div class="metrics">
+<div><span>Baseline conversions</span><strong id="baseline-rate"></strong></div>
+<div><span>Candidate conversions</span><strong id="candidate-rate"></strong></div>
+<div><span>Difference</span><strong id="delta"></strong></div>
+<div><span>Candidate errors</span><strong id="candidate-error"></strong></div>
+</div>
+<p><strong>Illustrative review status:</strong> <span id="decision"></span></p>
+<p>Not a production experiment or a recommendation to ship. Any real experiment requires representative assignment, valid measurement, error analysis and appropriate statistical methods.</p>
+</section>
+<section class="panel"><h2>Scope and contributions</h2><p>Built as an offline reference within the Data Table Interactions repository, not a new standalone GitHub repository. This page never connects to a server, records personal data, or performs a real test. <a href="https://github.com/esheenj/data-table-interactions-oss">Inspect source and tests</a>.</p></section>
+</main></body></html>
