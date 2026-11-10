@@ -103,3 +103,9 @@ Read [AGENTS.md](AGENTS.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the machine-
 The [fictional offline experiment worksheet](https://esheenj.github.io/data-table-interactions-oss/experiment.html) models two invented cohorts, computes transparent descriptive conversion/error rates and shows an illustrative error guardrail with explicit HOLD and insufficient-sample states. The pure model is in `src/experiment.mjs`, with Node tests at `tests/experiment.test.mjs`, and it is independently exercised by staged Chrome browser QA.
 
 This is not a genuine experiment, randomization, significance test, causal inference or shipping recommendation. No private source, accounts, network, uploads or telemetry. It is an additional public tool inside this existing MIT repository; publishing source and CI does not by itself verify external HTTPS reachability.
+
+## Additional hosted tool: Data Quality Observatory
+
+The [offline Data Quality Observatory](https://esheenj.github.io/data-table-interactions-oss/quality.html) processes only an explicitly supplied small fictional JSON array in the browser. It flags duplicate or missing IDs, missing labels or scores, stale fictional values and example scores outside a documented range, then provides per-record issues. `src/data-quality.mjs` is a strict 1–50-row pure model, with deterministic negative cases and staged real Chrome regression checks. The Pages stager publishes only the enumerated static source files.
+
+No network, accounts, telemetry, private source or actual records are part of this tool. Heuristics are not production-grade dataset reliability, compliance, confidentiality or source provenance guarantees. **This is a new working tool inside an existing public repository, not another independently created repo.**
