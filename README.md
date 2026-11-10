@@ -97,3 +97,9 @@ Read [AGENTS.md](AGENTS.md), [CONTRIBUTING.md](CONTRIBUTING.md) and the machine-
 - [Data Table Interactions](https://github.com/esheenj/data-table-interactions-oss)
 - [Design System Foundations](https://github.com/esheenj/design-system-foundations-oss)
 
+
+## Additional hosted tool: Synthetic Experiment Worksheet
+
+The [fictional offline experiment worksheet](https://esheenj.github.io/data-table-interactions-oss/experiment.html) models two invented cohorts, computes transparent descriptive conversion/error rates and shows an illustrative error guardrail with explicit HOLD and insufficient-sample states. The pure model is in `src/experiment.mjs`, with Node tests at `tests/experiment.test.mjs`, and it is independently exercised by staged Chrome browser QA.
+
+This is not a genuine experiment, randomization, significance test, causal inference or shipping recommendation. No private source, accounts, network, uploads or telemetry. It is an additional public tool inside this existing MIT repository; publishing source and CI does not by itself verify external HTTPS reachability.
