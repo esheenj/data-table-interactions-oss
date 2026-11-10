@@ -167,5 +167,30 @@ class TableBrowserTests(unittest.TestCase):
         self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth"),320)
         self.assertIn("connect-src 'none'",self.page.locator('meta[http-equiv="Content-Security-Policy"]').get_attribute("content"))
 
+
+    def test_data_quality_observatory_is_explainable_inert_and_offline(self):
+        self.page.goto(self.origin+"/quality.html")
+        expect(self.page.locator("#status")).to_have_text("3 fictional records reviewed · 6 findings.")
+        expect(self.page.locator("#summary")).to_contain_text("1 example rows")
+        self.assertEqual(self.page.locator("#rows li").count(),3)
+        expect(self.page.locator("#rows li").nth(1)).to_contain_text("DUPLICATE_ID")
+        self.page.locator("#input").evaluate("""el=>{
+          const rows=JSON.parse(el.value);
+          rows[0].label='<img src=x onerror=alert(1)>';
+          el.value=JSON.stringify(rows);
+        }""")
+        self.page.locator("#inspect").click()
+        self.assertEqual(self.page.locator("#rows img").count(),0)
+        expect(self.page.locator("#rows li").first).to_contain_text('<img src=x onerror=alert(1)>')
+        self.page.locator("#input").fill('[{"id":"x","label":3}]')
+        self.page.locator("#inspect").click()
+        expect(self.page.locator("#status")).to_contain_text("Rejected:")
+        expect(self.page.locator("#output")).to_be_hidden()
+        self.page.locator("#reset").click()
+        expect(self.page.locator("#input")).to_be_focused()
+        self.page.set_viewport_size({"width":320,"height":720})
+        self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth"),320)
+        self.assertIn("connect-src 'none'",self.page.locator('meta[http-equiv="Content-Security-Policy"]').get_attribute("content"))
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
