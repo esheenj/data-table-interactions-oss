@@ -13,7 +13,7 @@ test("exact public synthetic table artifact is reproducible and has no private n
   assert.equal(first.verifiedHosting,false);
   assert.deepEqual(first.files,second.files);
   assert.deepEqual(first.files.map(x=>x.path),[
-    ".nojekyll","examples/data.mjs","index.html","src/app.mjs","src/export.mjs","src/table.mjs"
+    ".nojekyll","examples/data.mjs","experiment.html","index.html","src/app.mjs","src/experiment-ui.mjs","src/experiment.mjs","src/export.mjs","src/table.mjs"
   ]);
   for(const entry of first.files){
     assert.match(entry.sha256,/^[a-f0-9]{64}$/);
