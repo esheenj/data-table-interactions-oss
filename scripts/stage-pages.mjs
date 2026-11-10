@@ -6,7 +6,7 @@ import {createHash} from "node:crypto";
 
 const ROOT=fileURLToPath(new URL("../",import.meta.url));
 const FILES=Object.freeze([
-  "index.html","src/app.mjs","src/table.mjs","src/export.mjs","examples/data.mjs"
+  "index.html","experiment.html","src/app.mjs","src/table.mjs","src/export.mjs","src/experiment.mjs","src/experiment-ui.mjs","examples/data.mjs"
 ]);
 function fail(reason){throw Error("TABLE_PAGES_STAGE_"+reason);}
 async function realSource(root,path){
@@ -51,6 +51,11 @@ export async function stagePages(destination){
       !app.includes('from "./table.mjs"')||
       !app.includes('from "./export.mjs"')||
       !app.includes('from "../examples/data.mjs"'))fail("IMPORT_NOT_FOUND");
+   const experimental=await readFile(join(output,"experiment.html"),"utf8");
+   const adapter=await readFile(join(output,"src/experiment-ui.mjs"),"utf8");
+   if(!index.includes("experiment.html")||!experimental.includes("./src/experiment-ui.mjs")||
+      !adapter.includes("./experiment.mjs")||!experimental.includes("connect-src 'none'"))
+    fail("EXPERIMENT_LINK_OR_OFFLINE_POLICY");
    const manifest=[];
    for(const file of actual){
      const data=await readFile(join(output,file));

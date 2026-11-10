@@ -141,5 +141,31 @@ class TableBrowserTests(unittest.TestCase):
         expect(self.page.locator('.scroll')).to_be_focused()
 
 
+
+    def test_synthetic_experiment_worksheet_guardrail_and_invalid_input(self):
+        self.page.goto(self.origin+"/experiment.html")
+        expect(self.page.locator("#status")).to_contain_text("Nothing uploaded")
+        expect(self.page.locator("#baseline-rate")).to_have_text("10.00%")
+        expect(self.page.locator("#candidate-rate")).to_have_text("15.00%")
+        expect(self.page.locator("#delta")).to_have_text("+5.00 percentage points")
+        expect(self.page.locator("#decision")).to_have_text("DESCRIPTIVE UPLIFT ONLY")
+        self.page.locator("#sheet").evaluate("""el=>{
+          const x=JSON.parse(el.value); x.candidate.errors=17;
+          x.baseline.name='<img src=x onerror=alert(1)>';
+          el.value=JSON.stringify(x);
+        }""")
+        self.page.locator("#evaluate").click()
+        expect(self.page.locator("#decision")).to_have_text("HOLD ERROR GUARDRAIL")
+        self.assertEqual(self.page.locator("#result img").count(),0)
+        self.page.locator("#sheet").fill('{"version":1,"baseline":{}}')
+        self.page.locator("#evaluate").click()
+        expect(self.page.locator("#status")).to_contain_text("Rejected:")
+        expect(self.page.locator("#result")).to_be_hidden()
+        self.page.locator("#reset").click()
+        expect(self.page.locator("#sheet")).to_be_focused()
+        self.page.set_viewport_size({"width":320,"height":700})
+        self.assertLessEqual(self.page.evaluate("document.documentElement.scrollWidth"),320)
+        self.assertIn("connect-src 'none'",self.page.locator('meta[http-equiv="Content-Security-Policy"]').get_attribute("content"))
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
