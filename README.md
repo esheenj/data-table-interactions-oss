@@ -1,6 +1,10 @@
 # Data Table Interactions
 
-**[Open the GitHub-deployed synthetic data table and CSV demo](https://esheenj.github.io/data-table-interactions-oss/)** — [GitHub Pages deployment](https://github.com/esheenj/data-table-interactions-oss/actions/runs/42476118286) succeeded on **9 November 2026**. Independent external HTTPS/browser verification is still pending; please report any rendering problems in GitHub Issues.
+**Explore the Esheen Labs gallery:** [Try 28 open-source browser demos and developer playgrounds](https://esheenj.github.io/compound-intelligence-starter/) across seven independent public repositories, including AI agent experiments, UX patterns and tooling. They use fictional examples; 28 demos does **not** mean 28 separate repositories.
+
+**Who this is for:** Explore search, sorting, filtering and CSV export on safe fictional data.
+
+**[Open the GitHub-deployed synthetic data table and CSV demo](https://esheenj.github.io/data-table-interactions-oss/)** — [GitHub Pages deployment](https://github.com/esheenj/data-table-interactions-oss/actions/runs/42476118286) succeeded on **9 November 2026**. The seven-project collection separately passed a bounded independent public HTTPS Chrome check on 11 November 2026 ([acceptance evidence](https://github.com/esheenj/compound-intelligence-starter/actions/runs/43064815195)); physical-device and assistive-technology acceptance are not claimed.
 
 [![Offline checks](https://github.com/esheenj/data-table-interactions-oss/actions/workflows/test.yml/badge.svg)](https://github.com/esheenj/data-table-interactions-oss/actions/workflows/test.yml)
 
