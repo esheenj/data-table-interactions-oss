@@ -1,4 +1,9 @@
-# Data Table Interactions
+# Data Table Interaction Toolkit
+
+**Product identity:** **Data Table Interaction Toolkit** is the public-facing name for this small, offline table-behaviour reference. Use fictional rows to test filtering, stable sorting, clamped pagination, empty states, keyboard-operable controls and filtered CSV export.
+
+**For:** frontend developers, UX engineers and dashboard builders. The project is an educational, dependency-free reference—not a hosted analytics product, secure data platform or production-grade component library. Repository, module exports, package identifier and public demo links remain stable.
+
 
 **Support this open-source project (optional):** [Esheen Labs crypto support](https://esheenj.github.io/compound-intelligence-starter/support.html) accepts maintainer-supplied BTC on Bitcoin and USDT on Solana, Ethereum/ERC-20 or Tron/TRC-20. The destination addresses are **custodial Pionex exchange deposits** and may change; check the exact network, current address and minimum before sending. Contributions do not buy priority, access or execution authority. All demos and source remain free.
 
