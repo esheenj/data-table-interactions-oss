@@ -60,3 +60,31 @@ test("empty filter has only the header and malformed inputs fail closed",()=>{
   assert.throws(()=>exportFilteredCSV(sampleRows,{pageSize:0}),TableError);
   assert.throws(()=>exportFilteredCSV(null),TableError);
 });
+
+test("Unicode whitespace formula prefixes are escaped without changing Unicode data or row order",()=>{
+  const rows=[
+    {id:"u1",name:"\u00a0=SUM(1,2)",category:"design",score:5},
+    {id:"u2",name:"\ufeff@fake",category:"design",score:5},
+    {id:"u3",name:"Zoë 東京",category:"design",score:7},
+    {id:"u4",name:"梅花 café",category:"design",score:1}
+  ];
+  const before=JSON.stringify(rows);
+  rows.forEach(Object.freeze);
+  Object.freeze(rows);
+  const result=exportFilteredCSV(rows,{
+    category:"design",sortBy:"score",direction:"asc",page:2,pageSize:1
+  });
+  assert.equal(result.rowCount,4);
+  assert.equal(result.csv,[
+    '"ID","Name","Category","Score"',
+    '"u4","梅花 café","design","1"',
+    '"u1","\'\u00a0=SUM(1,2)","design","5"',
+    '"u2","\'\ufeff@fake","design","5"',
+    '"u3","Zoë 東京","design","7"',
+    ''
+  ].join("\r\n"));
+  assert.equal(JSON.stringify(rows),before);
+  assert.equal(result.csv,exportFilteredCSV(rows,{
+    category:"design",sortBy:"score",direction:"asc",page:1,pageSize:50
+  }).csv);
+});
